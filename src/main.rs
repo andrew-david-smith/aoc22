@@ -1,5 +1,6 @@
 mod one;
 mod two;
+mod three;
 mod utils; 
 
 fn main() {
@@ -9,4 +10,7 @@ fn main() {
     println!("---------------------------");
     println!("---------- Day 2 ----------");
     two::run();
+    println!("---------------------------");
+    println!("---------- Day 3 ----------");
+    three::run();
 }
