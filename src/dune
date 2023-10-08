@@ -1,8 +1,8 @@
 (executables
- (names one two three)
- (modules one two three)
+ (names one two three four)
+ (modules one two three four)
  (libraries))
 
 (alias
  (name examples)
- (deps one.exe two.exe three.exe))
+ (deps one.exe two.exe three.exe four.exe))

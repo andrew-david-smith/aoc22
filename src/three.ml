@@ -1,4 +1,5 @@
 let file = "../inputs/3.txt"
+
 type bag = { left : char list; right : char list }
 
 let read_file ic =
@@ -15,11 +16,12 @@ let diff' l1 l2 = List.filter (fun x -> List.mem x l2) l1
 
 let split_in_half list =
   let rec split_at_helper v current output l =
-    if List.length l == (v + 1) then
-      split_at_helper v [] (output @ [current @ [List.hd l]]) (List.tl l)
-    else match l with
-    | h :: t -> split_at_helper v (current @ [h]) output t 
-    | [] -> if List.is_empty current then output else output @ [current]
+    if List.length l == v + 1 then
+      split_at_helper v [] (output @ [ current @ [ List.hd l ] ]) (List.tl l)
+    else
+      match l with
+      | h :: t -> split_at_helper v (current @ [ h ]) output t
+      | [] -> if List.is_empty current then output else output @ [ current ]
   in
   let length = List.length list / 2 in
   split_at_helper length [] [] list
@@ -33,23 +35,22 @@ let string_to_bag s =
   let parts = split_in_half list in
   let left = List.hd parts in
   let right = parts |> List.rev |> List.hd in
-  { left; right}
+  { left; right }
 
-let bag_to_score b =
-  diff b.left b.right |> char_score
+let bag_to_score b = diff b.left b.right |> char_score
 
 let in_batches_of n l =
   let rec batches_helper current output list =
-    if List.length current == n - 1 then 
-      batches_helper [] (output @ [current @ [List.hd list]]) (List.tl list)
-    else match list with
-    | h :: t -> batches_helper (current @ [h]) output t
-    | [] -> output @ [current]
+    if List.length current == n - 1 then
+      batches_helper [] (output @ [ current @ [ List.hd list ] ]) (List.tl list)
+    else
+      match list with
+      | h :: t -> batches_helper (current @ [ h ]) output t
+      | [] -> output @ [ current ]
   in
   batches_helper [] [] l
 
-let common_val l =
-  List.fold_left diff' (List.hd l) (List.tl l) |> List.hd
+let common_val l = List.fold_left diff' (List.hd l) (List.tl l) |> List.hd
 
 let () =
   let data = open_in file |> read_file in
