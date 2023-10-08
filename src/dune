@@ -1,0 +1,8 @@
+(executables
+ (names one two)
+ (modules one two)
+ (libraries))
+
+(alias
+ (name examples)
+ (deps one.exe two.exe))
